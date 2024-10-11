@@ -1,25 +1,68 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banco2024", "Banco2024\Banco2024.csproj", "{CCE07EAC-331A-441D-82C5-78D845A7AD3F}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CCE07EAC-331A-441D-82C5-78D845A7AD3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCE07EAC-331A-441D-82C5-78D845A7AD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCE07EAC-331A-441D-82C5-78D845A7AD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCE07EAC-331A-441D-82C5-78D845A7AD3F}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {28D2D724-0C4D-4435-AD5C-D33CDFCD61CA}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Banco2024
+{
+    class Cliente
+    {
+        private string nombre;
+        private int monto;
+
+        public void Depositar(int importeDeposito)
+        {
+            monto += importeDeposito;
+        }
+
+        public void Extraccion (int importeExtaccion)
+        {
+            monto -= importeExtaccion;
+        }
+
+        public int RetornarMonto()
+        { 
+            return monto; 
+        }
+    }
+
+    class Banco
+    {
+        Cliente cliente1 = new Cliente();
+        Cliente cliente2 = new Cliente();
+        Cliente cliente3 = new Cliente();
+
+        public void Operar()
+        {
+            //Deposito
+            cliente1.Depositar(1000);
+            cliente2.Depositar(500);
+            cliente3.Depositar(5000);
+            //Extracción
+            cliente1.Extraccion(500);
+            cliente2.Extraccion(3000);
+        }
+
+        public int DepositoTotal()
+        {
+            Console.WriteLine("El cliente1 tiene: " + cliente1.RetornarMonto());
+            Console.WriteLine("El cliente2 tiene: " + cliente2.RetornarMonto());
+            Console.WriteLine("El cliente3 tiene: " + cliente3.RetornarMonto());
+            return cliente1.RetornarMonto() + cliente2.RetornarMonto() + cliente3.RetornarMonto();
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Banco banco = new Banco();
+            banco.Operar();
+            Console.WriteLine("El saldo en el banco es: " + banco.DepositoTotal() + "Gs");
+
+            Console.WriteLine("Presione cualquier tecla para salir...");
+            Console.ReadKey();
+        }
+    }
+}
